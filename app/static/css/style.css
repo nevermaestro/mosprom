@@ -1,0 +1,14 @@
+button {
+border:none;
+background-color: hsl(148, 77%, 46%);
+border-radius: 10px;
+cursor: pointer;
+}
+button:hover{
+    background-color: hsl(148, 77%, 36%);
+}
+#Leftbar{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}

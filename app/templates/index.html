@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div id="Leftbar">
@@ -14,13 +15,14 @@
         </div>
         <div>
             <button>Настройки</button>
-            <button>Запросить</button>
+            <button id="click" onclick="handleClick()">Запросить</button>
             <button>Логин</button>
         <div>
     </div>
     <div>
         <div id="chartjs"></div>
-        <div><p>I HAVE NO CLUE WHAT THE HELL CHARTJS IS</p></div>
+        <div><p id="chart">Updated</p></div>
     </div>
+    <script src="../static/js/app.js"></script>
 </body>
 </html>
