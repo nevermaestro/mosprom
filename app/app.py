@@ -3,14 +3,12 @@ import parser
 from flask import Flask, render_template, jsonify, abort, make_response, request
 
 app = Flask(__name__)
-with open("data/gen.json", mode="r",encoding="utf-8") as json_data_file:
+with open("data/orgs.json", mode="r",encoding="utf-8") as json_data_file:
     json_data = json.load(json_data_file)
     
 @app.route("/")
 def homepage():
     return render_template("index.html",title="FLAME")
-
-# Global orgs endpoints
 
 @app.route("/api/orgs", methods=['GET'])
 def get_orgs():
@@ -18,17 +16,19 @@ def get_orgs():
 
 @app.route("/api/orgs", methods=['POST'])
 def create_org():
-    for i in json_data[-1]:
-        if i not in request.json and i != 'id':
-            abort(400)
-    if not request.json:
+    if not request.json or not 'ИНН' in request.json:
         abort(400)
-    org = {'id': json_data[-1]['id'] + 1}
-    org.update({key: request.json[key] for key in json_data[-1] if key != 'id'})
+    org = {
+        'id': json_data[-1]['id'] + 1,
+        'ИНН': request.json['ИНН'],
+        'Выручка': request.json['Выручка'],
+        'Название': request.json['Название'], # Мы не предполагаем что есть дыры в данных
+        'ОГРН': request.json['ОГРН']
+    }
     json_data.append(org)
-    return jsonify({"org":org}),201
+    return jsonify({'org':org}),201
 
-# Org specific endpoints
+# Org specific methods
 
 @app.route("/api/orgs/<int:org_id>", methods=['DELETE'])
 def delete_task(org_id):
@@ -45,8 +45,6 @@ def get_org(org_id):
         abort(404)
     return jsonify({"org": org[0]})
 
-# FIXME
-'''
 @app.route("/api/orgs/<int:org_id>", methods=['PUT'])
 def update_org(org_id):
     org = list(filter(lambda t: t['id'] == org_id, json_data))
@@ -67,8 +65,8 @@ def update_org(org_id):
     org[0]['Выручка'] = request.json.get('Выручка', org[0]['Выручка'])
     org[0]['ОГРН'] = request.json.get('ОГРН', org[0]['ОГРН'])
     return jsonify({'error': 'success'})
-'''
-# Parser and json endpoints
+
+# Parser and json methods
 
 @app.route("/api/orgs/refresh", methods=['GET'])
 def update_request():
