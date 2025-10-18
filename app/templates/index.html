@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div id="Leftbar">
@@ -17,12 +18,15 @@
             <button>Настройки</button>
             <button id="click" onclick="handleClick()">Запросить</button>
             <button>Логин</button>
-        <div>
-    </div>
-    <div>
-        <div id="chartjs"></div>
-        <div><p id="chart">Updated</p></div>
-    </div>
-    <script src="../static/js/app.js"></script>
-</body>
-</html>
+            <div>
+            </div>
+            <script src="../static/js/app.js"></script>
+            <div>
+                <div id="chartjs">
+                <div id="loading" style="display: none;">Loading...</div>
+                <canvas id="myChart" width="400" height="400" style="display: none;"></canvas>
+                </div>
+                <div><p id="">Updated</p></div>
+            </div>
+        </body>
+        </html>
