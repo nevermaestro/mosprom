@@ -2,11 +2,11 @@ import json
 from flask import Flask, render_template, jsonify, abort
 
 app = Flask(__name__)
-with open("../data/orgs.json", mode="r",encoding="utf-8") as json_data_file:
+with open("data/orgs.json", mode="r",encoding="utf-8") as json_data_file:
     json_data = json.load(json_data_file)
 @app.route("/")
 def homepage():
-    return render_template("../frontend/pages/index.html")
+    return render_template("index.html",title="Web")
 @app.route("/api/orgs", methods=['GET'])
 def get_orgs():
     return jsonify({"orgs":json_data})
