@@ -6,27 +6,31 @@
         <title>Document</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+        </style>
 </head>
 <body>
-    <div id="Leftbar">
-        <div id="top buttons">
+    <div id="topBar">
+        <div id="topButtons">
             <button>Главная</button>
             <button>Поиск</button>
             <button>Выгрузки</button>
-        </div>
-        <div>
             <button>Настройки</button>
             <button id="click" onclick="handleClick()">Запросить</button>
             <button>Логин</button>
-            <div>
-            </div>
+        </div>
             <script src="../static/js/app.js"></script>
-            <div>
+    </div>
+        <div id="charts">
                 <div id="chartjs">
                 <div id="loading" style="display: none;">Loading...</div>
-                <canvas id="myChart" width="400" height="400" style="display: none;"></canvas>
+                <div class="singleChart">                
+                    <canvas id="myChart"></canvas>
+                </div>
+
                 </div>
                 <div><p id="">Updated</p></div>
-            </div>
+        </div>
         </body>
         </html>

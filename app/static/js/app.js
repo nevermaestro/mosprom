@@ -22,13 +22,26 @@ async function fetchData() {
         }
 
         data.orgs.forEach(element => {
-            usefulArrayNames.push(element.Название);
-            usefulArrayRevenue.push(element.Выручка);
+            usefulArrayNames.push(element[Object.keys(element)[35]]);
+            console.log(element);
+            usefulArrayRevenue.push(Object.values(element)[11]);
         });
+        
+        const firstElement = data.orgs[0];
+        const keysfirst = Object.keys(firstElement);
+        console.log(firstElement);
+        orgStats = {};
+        for(let i = 0; i < keysfirst.length; i++){
+          const key = keysfirst[i];
+          orgStats[keysfirst[i]] = i;
+       }
+       console.log(orgStats);
+
     } catch (error) {
         console.error('There was a problem with your fetch operation:', error);
     }
 }
+console.log(usefulArrayNames);
 async function initChart() {
     // Show loading message
     document.getElementById('loading').style.display = 'block'; 
