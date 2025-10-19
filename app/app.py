@@ -45,8 +45,6 @@ def get_org(org_id):
         abort(404)
     return jsonify({"org": org[0]})
 
-# FIXME
-'''
 @app.route("/api/orgs/<int:org_id>", methods=['PUT'])
 def update_org(org_id):
     org = list(filter(lambda t: t['id'] == org_id, json_data))
@@ -54,20 +52,13 @@ def update_org(org_id):
         abort(404)
     if not request.json:
         abort(400)
-    if 'ИНН' in request.json and type(request.json['ИНН']) != str:
-        abort(400)
-    if 'Название' in request.json and type(request.json['Название']) != str:
-        abort(400)
-    if 'Выручка' in request.json and type(request.json['Выручка']) != int: # hmmmm
-        abort(400)
-    if 'ОРГН' in request.json and type(request.json['ОРГН']) != str:
-        abort(400)
-    org[0]['ИНН'] = request.json.get('ИНН', org[0]['ИНН'])
-    org[0]['Название'] = request.json.get('Название', org[0]['Название'])
-    org[0]['Выручка'] = request.json.get('Выручка', org[0]['Выручка'])
-    org[0]['ОГРН'] = request.json.get('ОГРН', org[0]['ОГРН'])
-    return jsonify({'error': 'success'})
-'''
+    for key in request.json:
+        if key not in json_data[-1] or type(request.json[key]) != type(json_data[-1][key]):
+            abort(400)
+    for key in request.json:
+        org[0][key] = request.json.get(key, org[0][key])
+    return jsonify({'org': org[0]})
+
 # Parser and json endpoints
 
 @app.route("/api/orgs/refresh", methods=['GET'])
